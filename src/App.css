@@ -47,9 +47,19 @@
     flex-direction: row;
 }
 
+.countryList {
+    overflow-y: scroll;
+    max-height: 50vw;
+}
+
 .countryList,
 .singleCountry {
     max-width: 40vw;
     flex: 1;
     margin: 0.5em;
+}
+
+ul li {
+    list-style-type: none;
+    text-decoration: none;
 }

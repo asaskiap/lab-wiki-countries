@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import countries from './../countries.json';
+import { Link } from 'react-router-dom';
 class CountryDetails extends Component {
   state = {
     country: null,
@@ -24,21 +25,19 @@ class CountryDetails extends Component {
       country: country,
     });
   }
+  findCountryNameByCode(code) {
+    return countries.find((item) => item.cca3 === code).name.common;
+  }
   render() {
     return (
       <div className="singleCountry">
         {this.state.country && (
           <div className="singleCountry">
-            {/* <h1>{this.state.country.name.common}</h1>
-            <div>
-              <p>Capital: {this.state.country.capital}</p>
-              <p>Currency: {this.state.country.currency}</p>
-              <p>
-                Region: {this.state.country.region},{' '}
-                {this.state.country.subregion}
-              </p>
-            </div> */}
             <h1>{this.state.country.name.common}</h1>
+            <img
+              src={`https://www.countryflags.io/${this.state.country.cca2.toLowerCase()}/flat/64.png`}
+              alt={this.state.country.name.common}
+            ></img>
             <table class="table">
               <thead></thead>
               <tbody>
@@ -57,7 +56,13 @@ class CountryDetails extends Component {
                   <td>
                     <ul>
                       {this.state.country.borders.map((border) => {
-                        return <li key={border}>{border}</li>;
+                        return (
+                          <li key={border}>
+                            <Link to={`/${border}`}>
+                              {this.findCountryNameByCode(border)}
+                            </Link>
+                          </li>
+                        );
                       })}
                     </ul>
                   </td>
